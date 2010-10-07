@@ -1,0 +1,3 @@
+This script allows you to turn any project into a kdevelop project.
+
+Usage: init_kdevelop_project project_dir
