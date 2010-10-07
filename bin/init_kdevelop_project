@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Usage: init_kdevelop_project project_dir
+
+project_dir="$1"
+project_dir_without_trailing_slash=`echo $project_dir|sed 's#/$##'` #Look! It's a hilariously long variable name!
+
+cmake_filepath="$project_dir_without_trailing_slash/CMakeLists.txt"
+touch "$cmake_filepath"
+echo "Created $cmake_filepath"
+
+dummyout_filepath="$project_dir_without_trailing_slash/dummy.out"
+touch "$dummyout_filepath"
+echo "Created $dummyout_filepath"
+
+kdevproj_filepath="$project_dir_without_trailing_slash/$project_dir_without_trailing_slash.kdev4"
+echo "[Project
+Manager=KDevCMakeManager
+Name=$project_dir_without_trailing_slash]" > "$kdevproj_filepath"
+echo "Created $kdevproj_filepath"
+
+dotkdev_dir="$project_dir_without_trailing_slash/.kdev4"
+mkdir "$dotkdev_dir" 
+echo "Created $dotkdev_dir"
+
+# TODO: Populate dotkdev_dir
+
+
+echo ''
+echo "Done. Now just run:"
+echo "  kdevelop $kdevproj_filepath"
